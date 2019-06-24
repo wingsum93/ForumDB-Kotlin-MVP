@@ -24,10 +24,11 @@ private fun dataToBundle(data: List<Pair<String, String>>): Bundle {
 
 fun BaseAnalyticActivity.logPageView_main() {
     val data = mutableListOf<Pair<String, String>>()
-    data += Constant.EVENT_NAME to "main_page"
-    data += Constant.CATEGORY to "view"
-    data += Constant.ACTION to "finish"
-    data += Constant.LABEL to "loading"
+    val suffix = DateHelper.firebaseSpecialFormat()
+    data += Constant.EVENT_NAME to "main_page$suffix"
+    data += Constant.CATEGORY to "view$suffix"
+    data += Constant.ACTION to "finish$suffix"
+    data += Constant.LABEL to "loading$suffix"
     firebaseAnalytics.logEvent {
         return@logEvent dataToBundle(data)
     }
@@ -36,10 +37,11 @@ fun BaseAnalyticActivity.logPageView_main() {
 
 fun BaseAnalyticActivity.logPageView_detail() {
     val data = mutableListOf<Pair<String, String>>()
-    data += Constant.EVENT_NAME to "detail_page"
-    data += Constant.CATEGORY to "view"
-    data += Constant.ACTION to "finish"
-    data += Constant.LABEL to "loading"
+    val suffix = DateHelper.firebaseSpecialFormat()
+    data += Constant.EVENT_NAME to "detail_page$suffix"
+    data += Constant.CATEGORY to "view$suffix"
+    data += Constant.ACTION to "finish$suffix"
+    data += Constant.LABEL to "loading$suffix"
     firebaseAnalytics.logEvent {
         return@logEvent dataToBundle(data)
     }
@@ -48,10 +50,11 @@ fun BaseAnalyticActivity.logPageView_detail() {
 
 fun BaseAnalyticActivity.logPageView_post_comment() {
     val data = mutableListOf<Pair<String, String>>()
-    data += Constant.EVENT_NAME to "post_comment"
-    data += Constant.CATEGORY to "post"
-    data += Constant.ACTION to "finish"
-    data += Constant.LABEL to "loading"
+    val suffix = DateHelper.firebaseSpecialFormat()
+    data += Constant.EVENT_NAME to "post_comment$suffix"
+    data += Constant.CATEGORY to "post$suffix"
+    data += Constant.ACTION to "finish$suffix"
+    data += Constant.LABEL to "loading$suffix"
     firebaseAnalytics.logEvent {
         return@logEvent dataToBundle(data)
     }
