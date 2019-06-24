@@ -4,19 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
 import com.marcgdiez.jsonplaceholder.R
 import com.marcgdiez.jsonplaceholder.business.Comment
 import com.marcgdiez.jsonplaceholder.business.Item
+import com.marcgdiez.jsonplaceholder.core.BaseAnalyticActivity
 import com.marcgdiez.jsonplaceholder.extensions.internetErrorDialog
+import com.marcgdiez.jsonplaceholder.extensions.logPageView_detail
+import com.marcgdiez.jsonplaceholder.extensions.logPageView_post_comment
 import kotlinx.android.synthetic.main.activity_item_details.*
 import org.koin.android.ext.android.inject
 
 
-class ItemDetailActivity : AppCompatActivity(), ItemDetailContract.View {
+class ItemDetailActivity : BaseAnalyticActivity(), ItemDetailContract.View {
 
     private val presenter: ItemDetailContract.Presenter by inject()
 
@@ -39,6 +41,8 @@ class ItemDetailActivity : AppCompatActivity(), ItemDetailContract.View {
 
         presenter.attachView(this)
         presenter.onViewReady(getItem())
+
+        logPageView_detail()
     }
 
     private fun initView() {
@@ -85,6 +89,7 @@ class ItemDetailActivity : AppCompatActivity(), ItemDetailContract.View {
         val adapter = recyclerView.adapter as? CommentsAdapter
         adapter?.addComment(comment)
         nestedScrollView.fullScroll(View.FOCUS_DOWN)
+        logPageView_post_comment()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

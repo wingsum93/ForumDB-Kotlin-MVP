@@ -1,17 +1,18 @@
 package com.marcgdiez.jsonplaceholder.list
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.marcgdiez.jsonplaceholder.R
 import com.marcgdiez.jsonplaceholder.business.Item
+import com.marcgdiez.jsonplaceholder.core.BaseAnalyticActivity
 import com.marcgdiez.jsonplaceholder.detail.ItemDetailActivity
 import com.marcgdiez.jsonplaceholder.extensions.internetErrorDialog
+import com.marcgdiez.jsonplaceholder.extensions.logPageView_main
 import com.marcgdiez.jsonplaceholder.extensions.show
 import kotlinx.android.synthetic.main.activity_list_items.*
 import org.koin.android.ext.android.inject
 
-class ItemsListActivity : AppCompatActivity(), ItemsListContract.View {
+class ItemsListActivity : BaseAnalyticActivity(), ItemsListContract.View {
 
     private val presenter: ItemsListContract.Presenter by inject()
 
@@ -25,6 +26,8 @@ class ItemsListActivity : AppCompatActivity(), ItemsListContract.View {
 
         presenter.attachView(this)
         presenter.onViewReady()
+
+
     }
 
     override fun showProgress() = progressView.show()
@@ -40,6 +43,10 @@ class ItemsListActivity : AppCompatActivity(), ItemsListContract.View {
     override fun navigateToDetail(it: Item) =
         startActivity(ItemDetailActivity.getCallingIntent(this, it))
 
+    override fun onResume() {
+        super.onResume()
+        logPageView_main()
+    }
     override fun onDestroy() {
         super.onDestroy()
         presenter.detachView()
